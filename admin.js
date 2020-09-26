@@ -45,6 +45,16 @@ router.post('/login', (req, res) => {
     }
 })
 
+router.post('/logout', (req, res) => {
+    const data = req.body;
+    if(data && adminSessions.includes(data.key)){
+        adminSessions.splice(adminSessions.indexOf(data.key), 1);
+    }
+    else{
+        res.status(500).send('Logout Failed');
+    }
+})
+
 router.post('/delete', (req, res) => {
     const data = req.body;
     if(data && data.payload && adminSessions.includes(data.adminSessionKey)){

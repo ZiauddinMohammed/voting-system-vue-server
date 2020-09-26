@@ -24,6 +24,16 @@ function login(payload){
     return candidate;
 }
 
+router.post('/logout', (req, res) => {
+    const data = req.body;
+    if(data && candidateSessions.includes(data.key)){
+        candidateSessions.splice(candidateSessions.indexOf(data.key), 1);
+    }
+    else{
+        res.status(500).send('Logout Failed');
+    }
+})
+
 router.post('/login', (req, res) => {
     const result = login(req.body);
     if(result){
@@ -36,6 +46,7 @@ router.post('/login', (req, res) => {
         res.status(404).send('Unauthorized User');
     }
 })
+
 
 router.post('/', (req, res) => {
     const data = req.body;
